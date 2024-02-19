@@ -1,15 +1,27 @@
 package br.com.Bookapi.domain;
 
+import jakarta.persistence.*;
+
+import javax.naming.Name;
+import java.io.Serializable;
 import java.util.Objects;
-
-public class Livro {
-
+@Entity
+@Table(name = "livro")
+public class Livro implements Serializable {
+    private static final Long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "titulo")
     private String titulo;
+    @Column(name = "nome_autor")
     private String nome_autor;
+    @Column(name = "texto")
     private String texto;
-
-    private Categoria categoria;
+@ManyToOne
+@JoinColumn(name = "categoria_id")
+private Categoria categoria;
 
     public Livro() {
     }
