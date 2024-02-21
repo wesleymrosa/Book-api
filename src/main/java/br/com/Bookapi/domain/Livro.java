@@ -2,9 +2,9 @@ package br.com.Bookapi.domain;
 
 import jakarta.persistence.*;
 
-import javax.naming.Name;
 import java.io.Serializable;
 import java.util.Objects;
+
 @Entity
 @Table(name = "livro")
 public class Livro implements Serializable {
@@ -19,9 +19,9 @@ public class Livro implements Serializable {
     private String nome_autor;
     @Column(name = "texto")
     private String texto;
-@ManyToOne
-@JoinColumn(name = "categoria_id")
-private Categoria categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Livro() {
     }
