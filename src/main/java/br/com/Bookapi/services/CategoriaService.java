@@ -1,5 +1,6 @@
 package br.com.Bookapi.services;
 
+import br.com.Bookapi.Service.Exceptions.ObjectNotFoundException;
 import br.com.Bookapi.domain.Categoria;
 import br.com.Bookapi.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,9 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repository;
 
-    public Categoria findById (Long id){
+    public Categoria findById(Long id) {
         Optional<Categoria> obj = repository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado ! Id:" + ", tipo: " + Categoria.class.getName()));
     }
 }
