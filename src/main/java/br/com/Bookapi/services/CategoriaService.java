@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class CategoriaService {
-
     @Autowired
     private CategoriaRepository repository;
 
@@ -24,4 +23,9 @@ public class CategoriaService {
     public List<Categoria> findAll() {
         return repository.findAll();
     }
+    public Categoria create(Categoria obj) {
+        obj.setId(null);
+        return repository.save(obj);
+    }
+
 }
