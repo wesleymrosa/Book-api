@@ -5,6 +5,7 @@ import br.com.Bookapi.domain.Categoria;
 import br.com.Bookapi.dtos.CategoriaDTO;
 import br.com.Bookapi.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,12 @@ public class CategoriaService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            throw new br.com.Bookapi.controller.exceptions.DataIntegrityViolationException(
+                    "Categoria não pode ser deletada ! Possui livros associados.");
+        }
+
     }
 }
