@@ -2,6 +2,7 @@ package br.com.Bookapi.services;
 
 import br.com.Bookapi.Service.Exceptions.ObjectNotFoundException;
 import br.com.Bookapi.domain.Categoria;
+import br.com.Bookapi.dtos.CategoriaDTO;
 import br.com.Bookapi.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,16 @@ public class CategoriaService {
     public List<Categoria> findAll() {
         return repository.findAll();
     }
+
     public Categoria create(Categoria obj) {
         obj.setId(null);
         return repository.save(obj);
     }
 
+    public Categoria update(Long id, CategoriaDTO objDTO) {
+        Categoria obj = findById(id);
+        obj.setNome(objDTO.getNome());
+        obj.setDescricao(objDTO.getDescricao());
+        return repository.save(obj);
+    }
 }
