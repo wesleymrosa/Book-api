@@ -1,7 +1,9 @@
 package br.com.Bookapi.services;
 
 import br.com.Bookapi.Service.Exceptions.ObjectNotFoundException;
+import br.com.Bookapi.domain.Categoria;
 import br.com.Bookapi.domain.Livro;
+import br.com.Bookapi.repositories.CategoriaRepository;
 import br.com.Bookapi.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class LivroService {
     private LivroRepository repository;
 
     @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
     private CategoriaService categoriaService;
     public Livro findById (Long id){
         Optional<Livro> obj = repository.findById(id);
@@ -22,9 +27,12 @@ public class LivroService {
                 "Objeto não encontrado ! Id: " + id+ ", Tipo: " + Livro.class.getName()));
     }
 
-    public List<Livro> findAll(Long idCat) {
-        categoriaService.findById(idCat);
-        return repository.findAllByCategoria(idCat);
+//    public Optional<Livro> buscaLivroPorId(Long idCat) {
+//        categoriaService.findById(idCat);
+//        return repository.findAllByCategoria(idCat);
+//    }
+    public List<Livro> buscaLivrosListaPorCategoria(Long idCategoria) {
+        return repository.buscaTodosLivrosDeCategoria(idCategoria);
     }
 
     public Livro update(Long id, Livro obj) {
@@ -37,5 +45,13 @@ public class LivroService {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNome_autor(obj.getNome_autor());
         newObj.setTexto(obj.getTexto());
+    }
+
+    public Livro create(Long idCat, Livro obj) {
+        obj.setId(null);
+        Categoria cat = categoriaService.findById(idCat);
+        obj.setCategoria(cat);
+        return repository.save(obj);
+
     }
 }
