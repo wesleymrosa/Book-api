@@ -1,5 +1,6 @@
 package br.com.Bookapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Categoria implements Serializable {
     private String nome;
     @Column(name = "descricao")
     private String descricao;
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria")
     private List<Livro> livros = new ArrayList<>();
 

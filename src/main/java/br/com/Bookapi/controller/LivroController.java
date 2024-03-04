@@ -24,36 +24,32 @@ public class LivroController {
     private CategoriaService categoriaService;
 
     @GetMapping (value = "/{id}")
-    public ResponseEntity<Livro> findById (@PathVariable Long id){
-        Livro obj = service.findById(id);
+    public ResponseEntity<Livro> findById (@PathVariable("id") Long id){
+        Livro obj = service.buscarLivroPorId(id);
         return ResponseEntity.ok().body(obj);
     }
     @GetMapping
     public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0") Long id_cat) throws Exception {
-
-
         List<Livro> livros = service.buscaLivrosListaPorCategoria(id_cat);
         List<LivroDTO> livrosLista = livros.stream().map((item) -> {
                     return new LivroDTO(item);
                 })
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(livrosLista);
-
-
     }
 
 
-//    @PutMapping (value = "/{id}")
-//    public ResponseEntity<Livro>update(@PathVariable Long id, @RequestBody Livro obj){
-//        Livro newObj = service.update(id, obj);
-//        return ResponseEntity.ok().body(newObj);
-//    }
+    @PutMapping (value = "/{id}")
+    public ResponseEntity<Livro>update(@PathVariable Long id, @RequestBody Livro obj){
+        Livro newObj = service.update(id, obj);
+        return ResponseEntity.ok().body(newObj);
+    }
 
-//    @PatchMapping (value = "/{id}")
-//    public ResponseEntity<Livro>updatePatch(@PathVariable Long id, @RequestBody Livro obj){
-//        Livro newObj = service.update(id, obj);
-//        return ResponseEntity.ok().body(newObj);
-//    }
+    @PatchMapping (value = "/{id}")
+    public ResponseEntity<Livro>updatePatch(@PathVariable Long id, @RequestBody Livro obj){
+        Livro newObj = service.update(id, obj);
+        return ResponseEntity.ok().body(newObj);
+    }
 
     @PostMapping
     public ResponseEntity<Livro> create (@RequestParam(value = "categoria", defaultValue = "0") Long id_cat,

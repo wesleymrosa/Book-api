@@ -21,22 +21,23 @@ public class LivroService {
 
     @Autowired
     private CategoriaService categoriaService;
-    public Livro findById (Long id){
+    public Livro buscarLivroPorId (Long id){
         Optional<Livro> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado ! Id: " + id+ ", Tipo: " + Livro.class.getName()));
+        return obj.get();
+//        return obj.orElseThrow(() -> new ObjectNotFoundException(
+//                "Objeto não encontrado ! Id: " + id+ ", Tipo: " + Livro.class.getName()));
     }
 
-//    public Optional<Livro> buscaLivroPorId(Long idCat) {
-//        categoriaService.findById(idCat);
-//        return repository.findAllByCategoria(idCat);
-//    }
+    public Optional<Livro> buscaLivroPorId(Long idCat) {
+
+        return repository.findById(idCat);
+    }
     public List<Livro> buscaLivrosListaPorCategoria(Long idCategoria) {
         return repository.findLivroByCategoriaId(idCategoria);
     }
 
     public Livro update(Long id, Livro obj) {
-        Livro newObj = findById(id);
+        Livro newObj = buscarLivroPorId(id);
         updateData(newObj, obj);
         return repository.save(newObj);
     }

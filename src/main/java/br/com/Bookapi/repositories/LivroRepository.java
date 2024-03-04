@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long> {
@@ -15,4 +16,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     //@Query("select l.* from livro l where l.categoria.id = ?1")
     List<Livro> findLivroByCategoriaId(Long idCategoria);
+
+
 }
