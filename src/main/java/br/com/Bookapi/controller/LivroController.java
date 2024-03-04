@@ -30,9 +30,7 @@ public class LivroController {
     }
     @GetMapping
     public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0") Long id_cat) throws Exception {
-//        Optional<Livro> all = service.buscaLivroPorId(id_cat);
-//
-//        Livro livro = all.orElseThrow(() -> new Exception("Livro não encontrado."));
+
 
         List<Livro> livros = service.buscaLivrosListaPorCategoria(id_cat);
         List<LivroDTO> livrosLista = livros.stream().map((item) -> {
@@ -40,8 +38,7 @@ public class LivroController {
                 })
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(livrosLista);
-//                List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList()
-//                );
+
 
     }
 

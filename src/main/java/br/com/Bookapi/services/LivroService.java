@@ -32,7 +32,7 @@ public class LivroService {
 //        return repository.findAllByCategoria(idCat);
 //    }
     public List<Livro> buscaLivrosListaPorCategoria(Long idCategoria) {
-        return repository.buscaTodosLivrosDeCategoria(idCategoria);
+        return repository.findLivroByCategoriaId(idCategoria);
     }
 
     public Livro update(Long id, Livro obj) {

@@ -13,6 +13,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 //    Optional<Livro> findAllByCategoria(@Param(value = "id_cat") Long idCat);
 
 
-    @Query("select l.* from livro l where l.categoria.id = ?1")
-    List<Livro> buscaTodosLivrosDeCategoria(Long idCategoria);
+    //@Query("select l.* from livro l where l.categoria.id = ?1")
+    List<Livro> findLivroByCategoriaId(Long idCategoria);
 }
